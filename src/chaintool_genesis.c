@@ -5,6 +5,7 @@
 #include <hiredis/hiredis.h>
 
 #include "chain.h"
+#include "chain_redis.h"
 #include "chaintool_genesis.h"
 
 void chaintool_genesis_usage() {
@@ -36,13 +37,17 @@ int chaintool_genesis(int argc, const char *argv[]) {
         }
     }
 
+    printf("\n");
+    chain_redis_server_t server;
+    chain_redis_server_init(&server);
+
     redisContext *ctx = redisConnect("127.0.0.1", 6379);
     if (ctx->err) {
         printf("Error: %s\n", ctx->errstr);
         return 1;
     }
 
-    printf("\nCreating new chain.\n\n");
+    printf("Creating new chain.\n\n");
     randombytes_buf(nonce, sizeof nonce);
     sodium_bin2hex(hash, sizeof hash, nonce, sizeof nonce);
     block_init(&b, 0L, 0, hash, data_val);
@@ -50,5 +55,7 @@ int chaintool_genesis(int argc, const char *argv[]) {
     block_compute_hash(&b);
     block_print(&b);
     block_flush(&b, ctx);
+    chain_redis_server_close(&server);
+
     return CHAIN_RESULT_OK;
 }

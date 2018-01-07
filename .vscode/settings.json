@@ -4,7 +4,9 @@
         "stdio.h": "c",
         "chain.h": "c",
         "chaintool_genesis.h": "c",
-        "hiredis.h": "c"
+        "hiredis.h": "c",
+        "stdlib.h": "c",
+        "chain_redis.h": "c"
     },
     "configurations": {
         "name": "Mac",

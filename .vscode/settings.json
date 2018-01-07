@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "string.h": "c",
+        "stdio.h": "c",
+        "chain.h": "c",
+        "chaintool_genesis.h": "c",
+        "hiredis.h": "c"
+    },
+    "configurations": {
+        "name": "Mac",
+        "includePath": [
+            "/usr/include",
+            "/usr/local/include",
+            "${workspaceRoot}/src"
+        ]
+    },
+    "search.exclude": {
+        "**/.git/": true,
+        "**/deps/": true
+    }
+}
